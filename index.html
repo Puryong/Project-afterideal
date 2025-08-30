@@ -12,22 +12,29 @@
   <p id="counter">방문자 수 불러오는 중...</p>
 
   <script>
-    // Public Workspace + 카운터 이름에 맞게 수정
-    const workspace = "Afterideal";  // 워크스페이스 이름
-    const counter = "Idealvisitor";                 // 카운터 이름
+    // Private Workspace + 카운터 + API 토큰 설정
+    const workspace = "Afterideal";
+    const counter = "Idealvisitor";
+    const token = "ut_roLGwwi0neaCcy2tqlXPdRkpdiIYwV3Xn6m25Qzr";
 
-    fetch(`https://api.counterapi.dev/v2/${workspace}/${counter}/up`)
-      .then(res => res.json())
-      .then(data => {
-        // 여기서 data.count 사용
-        document.getElementById("counter").innerText =
-          `전체 방문자 수: ${data.count} 명`;
-      })
-      .catch(err => {
-        console.error("CounterAPI 오류:", err);
-        document.getElementById("counter").innerText =
-          "방문자 수 불러오기 실패 😢";
-      });
+    fetch(`https://api.counterapi.dev/v2/${workspace}/${counter}/up`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      // 방문자 수 표시
+      document.getElementById("counter").innerText =
+        `전체 방문자 수: ${data.count} 명`;
+    })
+    .catch(err => {
+      console.error("CounterAPI 오류:", err);
+      document.getElementById("counter").innerText =
+        "방문자 수 불러오기 실패 😢";
+    });
   </script>
 </body>
 </html>
+
