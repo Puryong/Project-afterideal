@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>나의 첫 웹사이트</title>
+  <style>
+    :root { --brand: #0f766e; --bg:#f6f9fc; --text:#1f2937; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #fff;
+      max-width: 720px;
+      width: 100%;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+    h1 { margin: 0 0 8px; }
+    .sub { margin: 0 0 20px; color: #6b7280; }
+    .button {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .button:hover, .button:focus { filter: brightness(.92); }
+    footer { margin-top: 16px; font-size: 12px; color:#6b7280; }
+    #counter { margin-top: 12px; font-weight: bold; }
+    @media (max-width: 480px) { .card { padding: 20px; } }
+  </style>
+</head>
+<body>
+    <main class="card">
+      <h1>asdf</h1>
+      <p id="counter">방문자 수 불러오는 중...</p>
+    </main> 
+  
+    <!-- 여기 아래에 넣어야 함 -->
+    <script>
+      fetch("https://api.countapi.xyz/hit/puryong-981asdfz/visits")
+        .then(res => res.json())
+        .then(data => {
+          console.log(data); // 개발자 콘솔에 찍힘
+          document.getElementById("counter").innerText =
+            `전체 방문자 수: ${data.value} 명`;
+        })
+        .catch(err => {
+          console.error("CountAPI 오류:", err);
+          document.getElementById("counter").innerText =
+            "방문자 수 불러오기 실패 😢";
+        });
+    </script>
+  </body>
+  
